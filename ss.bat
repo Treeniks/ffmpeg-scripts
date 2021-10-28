@@ -1,4 +1,4 @@
-set /p time=ss
+set /p time="ss "
 
 :next
 
@@ -12,7 +12,7 @@ ffmpeg.exe ^
 -avoid_negative_ts make_zero ^
 "%~n1 - shortened%~x1"
 
-ren "%~1" "%~n1 - OG%~x1"
+ren "%~1" "%~n1%~x1"
 
 shift
 goto next
