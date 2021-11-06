@@ -12,8 +12,6 @@ ffmpeg.exe ^
 -c copy ^
 "%~n1 - shortened%~x1"
 
-ren "%~1" "%~n1%~x1"
-
 shift
 goto next
 
