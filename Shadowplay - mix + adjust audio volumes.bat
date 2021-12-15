@@ -1,15 +1,16 @@
 @echo off
-set /p v0="Volume for Stream 0 (1.0 = unchanged): "
-set /p v1="Volume for Stream 1 (1.0 = unchanged): "
+echo 1.0 = unchanged volume
+set /p v0="Volume for Stream 0 (System Sound): "
+set /p v1="Volume for Stream 1 (Microphone): "
 
 :next
 
 if "%~1" == "" goto done
 
 ffmpeg.exe -i "%~1" ^
--filter_complex "[0:a:0]volume=%v0%[a0];[0:a:1]volume=%v1%[a1];[a0][a1]amix=inputs=2[amix]" ^
+-filter_complex "[0:a:0][0:a:1]amerge=inputs=2,pan=stereo|c0=%v0%*c0+%v1%*c2|c1=%v0%*c1+%v1%*c3[amerge]" ^
 -map 0:v:0 ^
--map "[amix]" ^
+-map "[amerge]" ^
 -map 0:a:0 ^
 -map 0:a:1 ^
 -c:v copy ^

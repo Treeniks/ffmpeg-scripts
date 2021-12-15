@@ -3,9 +3,9 @@
 if "%~1" == "" goto done
 
 ffmpeg.exe -i "%~1" ^
--filter_complex "[0:a:0][0:a:1]amix=inputs=2[amix]" ^
+-filter_complex "[0:a:0][0:a:1]amerge=inputs=2,pan=stereo|c0=c0+c2|c1=c1+c3[amerge]" ^
 -map 0:v:0 ^
--map "[amix]" ^
+-map "[amerge]" ^
 -map 0:a:0 ^
 -map 0:a:1 ^
 -c:v copy ^
